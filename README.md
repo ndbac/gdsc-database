@@ -20,7 +20,7 @@ File json [hieu-ve-co-che-bat-dong-bo-asynchronous-javascript.json](./Blogs/hieu
 
 ```json
 {
-  "rawContent": "<div class="post-body"></div>,
+  "rawContent": "<div class="post-body"></div>",
   "authorName": "Tu Bui",
   "timeRelease": "2021-11-02T13:40:50Z",
   "timeCreate": "2021-11-02T02:21:50Z",
@@ -50,11 +50,13 @@ Xem thêm [Demo](#demo)
 
 File html [Hiểu về Cơ chế Bất Đồng bộ Asynchronous Javascript.html](./Blogs/Hiểu%20về%20Cơ%20chế%20Bất%20Đồng%20bộ%20Asynchronous%20Javascript.html)
 
-Tất cả nội dung wrap trong:
+1. Soạn nội dung html, tất cả wrap trong:
 
 ```html
 <div class="post-body">Nội dung blog</div>
 ```
+
+2. Các bạn copy nội dung html rồi paste vào phần `rawContent` trong file JSON.
 
 Bắt đầu từ ảnh thumbnail, _không bao gồm `title` và `subtitle`_.
 

@@ -1,0 +1,444 @@
+<div class="post-body">
+    <figure>
+        <img
+                src="https://i.postimg.cc/28YRybpq/d6668078-23db-42d3-b311-ea0a97dbd6e6.gif"
+                alt="Event loop và Callback queue"
+        />
+        <figcaption>Asynchronous JavaScript</figcaption>
+    </figure>
+
+    <h1 id="gioi-thieu">Giới thiệu</h1>
+
+    <p>
+        <strong>JavaScript</strong> là một ngôn ngữ lập trình đơn luồng có nghĩa là
+        chỉ có một điều có thể xảy ra tại một thời điểm. Tức là, JavaScript engine
+        chỉ có thể xử lý một câu lệnh tại một thời điểm trong một luồng duy nhất.
+    </p>
+
+    <p>
+        Mặc dù ngôn ngữ đơn luồng đơn giản hóa việc viết code do bạn không cần lo
+        lắng về các vấn đề tương tranh, điều này cũng có nghĩa là bạn không thể thực
+        hiện các tác vụ dài như truy cập mạng mà không chặn luồng chính.
+    </p>
+
+    <p>
+        Hãy tưởng tượng bạn request dữ liệu từ một API. Tùy thuộc vào tình hình máy
+        chủ có thể mất một thời gian để xử lý request trong khi chặn luồng chính làm
+        cho trang web không hồi đáp.
+    </p>
+
+    <p>
+        Đó là lý do asynchronous JavaScript xuất hiện. Sử dụng asynchronous
+        JavaScript (callbacks, promises, and async/await) bạn có thể thực hiện các
+        request network dài mà không chặn luồng chính.
+    </p>
+
+    <h1 id="synchronous-javascript">Synchronous Javascript</h1>
+
+    <p>
+        Trước khi đi sâu vào asynchronous JavaScript, ta cần hiểu cách mà
+        synchronous JavaScript code được thực thi trong JavaScript engine. Ví dụ:
+    </p>
+
+    <pre><code class="language-javascript">const second = () =&gt; {
+    console.log('Hello there!');
+}
+const first = () =&gt; {
+    console.log('Hi there!');
+    second();
+    console.log('The End');
+}
+first();
+</code></pre>
+
+    <p>
+        Để hiểu đoạn code trên được thực thi như thế nào trong JavaScript engine,
+        chúng ta phải hiểu khái niệm về <strong>execution context</strong> và
+        <strong>call stack</strong>.
+    </p>
+
+    <h2 id="execution-context">Execution Context</h2>
+
+    <p>
+        <strong>Execution Context</strong> là một khái niệm trừu tượng về môi trường
+        nơi JavaScript code được đánh giá và thực hiện. Bất cứ khi nào code được
+        thực thi trong JavaScript, nó chạy trong một <em>execution context</em>.
+    </p>
+
+    <p>
+        Code global thực thi trong một global execution context, và code toàn cục
+        thực hiện trong một local execution context toàn cục. Mỗi hàm có một
+        execution context riêng của nó.
+    </p>
+
+    <h2 id="call-stack">Call Stack</h2>
+
+    <p>
+        <strong>Call stack</strong> như tên gọi của nó là một stack với cấu trúc
+        <em>LIFO (Last in First out)</em> được sử dụng để lưu trữ tất cả các
+        execution context được tạo ra trong quá trình thực thi code.
+    </p>
+
+    <blockquote>
+        <p>
+            JavaScript có một call stack duy nhất vì nó là một ngôn ngữ lập trình đơn
+            luồng. Call Stack có cấu trúc LIFO nghĩa là các mục chỉ có thể được thêm
+            hoặc xóa khỏi đầu stack.
+        </p>
+    </blockquote>
+
+    <p>
+        Hãy quay lại đoạn mã trên và tìm hiểu cách code được thực thi bên trong
+        JavaScript engine.
+    </p>
+
+    <figure>
+        <img
+                src="https://i.postimg.cc/523LSZ88/e6a202c0-2dbc-4ec0-af91-0fc89500fb72.webp"
+                alt="Call stack"
+        />
+        <figcaption>Call stack khi chạy đoạn code trên</figcaption>
+    </figure>
+
+    <ul>
+        <li>
+            <p>Khi đoạn code trên được thực thi, một
+                <em>local execution context</em> được tạo ra (biểu diễn bằng hàm
+                <code>main()</code>) và được đẩy vào đầu stack. Khi hàm
+                <code>first()</code> được gọi, nó được đẩy vào đầu stack.</p>
+        </li>
+        <li>
+            <p>
+                Tiếp theo, <code>console.log('Hi there!')</code> được đẩy vào đầu stack,
+                khi kết thúc, nó được lấy ra từ stack. Sau đó hàm
+                <code>second()</code> được gọi và nó được đẩy vào đầu của stack.
+            </p>
+
+        </li>
+        <li>
+            <p>
+            <code>console.log('Hello there!')</code> được đẩy vào đầu stack là lấy
+            ra khi nó kết thúc. Hàm <code>second()</code> kết thúc, do đó nó được
+            lấy ra khỏi stack.</p>
+        </li>
+        <li>
+            <p><code>console.log(‘The End’)</code> được đẩy vào đầu của stack và xóa đi
+            khi nó kết thúc. Sau đó, hàm <code>first()</code> kết thúc và nó được
+            lấy ra khỏi stack.</p>
+        </li>
+        <li>
+            <p>Chương trình thực hiện xong ở đây và
+            <em>local execution context</em> (<code>main()</code>) được lấy ra khỏi
+            stack.</p>
+        </li>
+    </ul>
+
+    <p>
+        Đến đây ta đã có ý tưởng cơ bản về <strong>call stack</strong> và JavaScript
+        đồng bộ hoạt động như thế nào, hãy quay trở lại với JavaScript bất đồng bộ.
+    </p>
+
+    <h1 id="asynchronous-javascript">Asynchronous Javascript</h1>
+
+    <h2 id="blocking">Blocking</h2>
+
+    <p>
+        Giả sử ta đang xử lý hình ảnh hay thực hiện network request theo cách đồng
+        bộ:
+    </p>
+
+    <pre><code class="language-javascript">const processImage = (image) =&gt; {
+/**
+* doing some operations on image
+**/
+console.log('Image processed');
+}
+const networkRequest = (url) =&gt; {
+/**
+* requesting network resource
+**/
+return someData;
+}
+const greeting = () =&gt; {
+console.log('Hello World');
+}
+processImage(logo.jpg);
+networkRequest('www.somerandomurl.com');
+greeting();
+</code></pre>
+
+    <p>
+        Việc xử lý hình ảnh và network request cần có thời gian. Vì vậy, khi hàm
+        <code>processImage()</code> được gọi, sẽ mất một chút thời gian tùy thuộc
+        vào kích thước của hình ảnh.
+    </p>
+
+    <p>
+        Khi hàm <code>processImage()</code> hoàn thành, nó sẽ bị xóa khỏi stack, sau
+        đó hàm <code>networkRequest()</code> được gọi và được đẩy vào stack, một lần
+        nữa cũng sẽ mất một thời gian để nó thực thi xong.
+    </p>
+
+    <p>
+        Cuối cùng khi hàm <code>networkRequest()</code> hoàn thành, hàm
+        <code>greeting()</code> được gọi và nó chỉ thực thi một câu lệnh
+        <code>console.log</code> và các câu lệnh <code>console.log</code> nói chung
+        là nhanh, do đó hàm <code>greeting()</code> thực hiện xong ngay lập tức và
+        kết thúc.
+    </p>
+
+    <p>
+        Như đã thấy, chúng ta phải chờ các hàm <code>processImage()</code> và
+        <code>networkRequest()</code> kết thúc. Điều này có nghĩa là các hàm này
+        đang chặn <strong>call stack</strong> hay luồng chính. Do đó chúng ta không
+        thể thực hiện hoạt động khác khi code trên đang thực hiện.
+    </p>
+
+    <h2 id="giai-phap-cho-blocking">Giải pháp cho blocking</h2>
+
+    <p>
+        Giải pháp đơn giản nhất là <strong>callbacks không đồng bộ</strong>. Ta sử
+        dụng asynchronous callbacks để làm cho code trở thành
+        <strong>non-blocking</strong>. Ví dụ:
+    </p>
+
+    <pre><code class="language-javascript">const networkRequest = () =&gt; {
+    setTimeout(() =&gt; {
+        console.log('Async Code');
+    }, 2000);
+};
+console.log('Hello World');
+networkRequest();
+</code></pre>
+
+    <p>
+        Ở đây, phương thức <code>setTimeout</code> được sử dụng để mô phỏng network
+        request. Cần nhớ rằng <code>setTimeout</code> không phải là một phần của
+        Javascript engine. Nó là một phần của web APIs và C/C++ APIs.
+    </p>
+
+    <p>
+        Để hiểu đoạn code này được thực thi như thế nào, chúng ta cần hiểu một vài
+        khái niệm khác như <strong>event loop</strong> và
+        <strong>callback queue</strong> (hay <em>message queue</em>)
+    </p>
+
+    <figure>
+        <img
+                src="https://i.postimg.cc/yxcv1vtn/97f2b2fc-d251-489e-ab2e-f799a0803931.webp"
+                alt="Event loop và Callback queue"
+                title=""
+        />
+        <figcaption>Event loop và Message queue</figcaption>
+    </figure>
+
+    <p>
+        <code>event loop</code>, <code>web APIs</code> và
+        <code>message queue</code> không phải là một phần của JavaScript engine, nó
+        là một phần của môi trường thực thi Javascript của browser hay môi trường
+        thực thi Nodejs JavaScript (trong trường hợp Nodejs). Trong Nodejs, web APIs
+        được thay thế bởi C/C++ APIs.
+    </p>
+
+    <p>
+        Bây giờ hãy trở lại với đoạn code trên và xem xét nó được thực thi như thế
+        nào theo cách bất đồng bộ:
+    </p>
+
+    <pre><code class="language-javascript">const networkRequest = () =&gt; {
+    setTimeout(() =&gt; {
+        console.log('Async Code');
+    }, 2000);
+};
+console.log('Hello World');
+networkRequest();
+console.log('The End');
+</code></pre>
+
+    <figure>
+        <img
+                src="https://i.postimg.cc/28YRybpq/d6668078-23db-42d3-b311-ea0a97dbd6e6.gif"
+                alt="Event loop và Callback queue"
+                title=""
+        />
+        <figcaption>Event loop và Message queue bất đồng bộ</figcaption>
+    </figure>
+
+    <p>
+        Khi đoạn code trên được load vào trình duyệt,
+        <code>console.log(‘Hello World’)</code> được đẩy vào stack và lấy ra khi nó
+        kết thúc. Tiếp theo, <code>hàm networkRequest()</code> được gọi và nó được
+        đẩy vào đầu stack.
+    </p>
+
+    <p>
+        Tiếp theo, hàm <code>setTimeout()</code> được gọi, nó được đẩy vào đầu
+        stack. Hàm <code>setTimeout()</code> có hai tham số 1) callback và 2) thời
+        gian với đơn vị mili giây.
+    </p>
+
+    <p>
+        Hàm <code>setTimeout()</code> bắt đầu hẹn giờ 2s trong môi trường web APIs.
+        Tại thời điểm này, <code>setTimeout()</code> kết thúc và được lấy ra khỏi
+        stack. Sau đó <code>console.log('The End')</code> được đẩy vào stack, thực
+        thi và xóa khỏi stack sau khi nó hoàn tất.
+    </p>
+
+    <p>
+        Trong khi đó, bộ hẹn giờ đến hạn và <code>callback</code> được đẩy vào
+        <strong>message queue</strong>. Nhưng <code>callback</code> không được thực
+        hiện ngay lập tức và đó là nơi <strong>event loop</strong> được khởi động.
+    </p>
+
+    <h2 id="event-loop">Event Loop</h2>
+
+    <p>
+        Công việc của <strong>event loop</strong> là nhìn vào
+        <strong>call stack</strong> và xác định xem call stack có trống hay không.
+        Nếu call stack trống, nó sẽ nhìn vào <strong>mesage queue</strong> để xem có
+        bất kỳ <code>callback</code> nào đang chờ xử lý để thực hiện nó.
+    </p>
+
+    <p>
+        Trong trường hợp này, message queue có chứa 1 <code>callback</code> còn call
+        stack thì trống rỗng. Do đó event loop đẩy <code>callback</code> vào đầu
+        stack.
+    </p>
+
+    <p>
+        <code>console.log(‘Async Code’)</code> được đẩy vào đầu stack, thực thi và
+        lấy ra khỏi stack. Tại đây, <code>callback</code> kết thúc và được lấy ra
+        khỏi stack và chương trình kết thúc.
+    </p>
+
+    <p>
+        Message queue cũng chứa các <code>callback</code> từ các DOM events như
+        event click và event keyboard. Ví dụ:
+    </p>
+
+    <pre><code class="language-javascript">document.querySelector('.btn').addEventListener('click',(event) =&gt; {
+    console.log('Button Clicked');
+});
+</code></pre>
+
+    <p>
+        Trong trường hợp DOM events, <em>event listener</em> đặt ở môi trường web
+        APIs chờ một event cụ thể xảy ra. Và khi nó xảy ra, hàm
+        <code>callback</code> được đặt vào message queue và chờ được thực thi. Một
+        lần nữa event loop sẽ kiểm tra xem call stack có trống không và đẩy
+        <code>callback</code> vào stack nếu nó trống và <code>callback</code> được
+        thực thi.
+    </p>
+
+    <h2 id="delay-thuc-thi-ham">Delay thực thi hàm</h2>
+
+    <p>
+        Chúng ta cũng có thể sử dụng <code>setTimeout</code> để trì hoãn việc thực
+        thi hàm cho đến khi stack trống. Ví dụ:
+    </p>
+
+    <pre><code class="language-javascript">const bar = () =&gt; {
+    console.log('bar');
+}
+const baz = () =&gt; {
+    console.log('baz');
+}
+const foo = () =&gt; {
+    console.log('foo');
+    setTimeout(bar, 0);
+    baz();
+}
+foo();
+</code></pre>
+
+    <p>Kết quả là:</p>
+    <pre><code class="language-javascript">foo
+baz
+bar
+</code></pre>
+
+    <p>
+        Khi code này chạy, đầu tiên <code>foo()</code> được gọi, bên trong foo chúng
+        ta gọi <code>console.log('foo')</code>, sau đó
+        <code>setTimeout()</code> được gọi với <code>bar()</code> là
+        <code>callback</code> và bộ đếm thời gian 0 giây.
+    </p>
+
+    <p>
+        Bây giờ nếu chúng ta không sử dụng <code>setTimeout</code>, hàm
+        <code>bar()</code> sẽ được thực hiện ngay lập tức, nhưng việc sử dụng
+        <code>setTimeout</code> với bộ đếm thời gian 0 giây giúp trì hoãn việc thực
+        hiện <code>bar()</code> cho đến khi stack trống.
+    </p>
+
+    <p>
+        Sau 0 giây, <code>callback</code> <code>bar ()</code> được đưa vào message
+        queue đang đợi để được thực thi. Nhưng nó sẽ chỉ được thực hiện khi stack
+        hoàn toàn trống rỗng sau khi hàm <code>baz</code> và <code>foo</code> kết
+        thúc.
+    </p>
+
+    <h2 id="es6-job-queue">ES6 Job Queue</h2>
+
+    <p>
+        Chúng ta đã học được cách các <code>callback</code> không đồng bộ và các DOM
+        events được thực thi, sử dụng message queue để lưu trữ tất cả các
+        <code>callback</code> chờ đợi để được thực thi.
+    </p>
+
+    <p>
+        <strong><a href="http://es6-features.org/" target="_blank">ES6</a></strong> giới thiệu khái
+        niệm về <strong>job queue</strong> được sử dụng bởi
+        <strong>Promises</strong> trong JavaScript.
+    </p>
+
+    <blockquote>
+        <p>
+            Sự khác biệt giữa message queue và job queue là job queue có mức ưu tiên
+            cao hơn message queue, có nghĩa là các <em>promise job</em> bên trong job
+            queue sẽ được <strong>thực thi trước</strong> các <em>callback</em> bên
+            trong message queue.
+        </p>
+    </blockquote>
+
+    <p>Ví dụ:</p>
+
+    <pre><code class="language-javascript">const bar = () =&gt; {
+    console.log('bar');
+};
+const baz = () =&gt; {
+    console.log('baz');
+};
+const foo = () =&gt; {
+    console.log('foo');
+    setTimeout(bar, 0);
+    new Promise((resolve, reject) =&gt; {
+        resolve('Promise resolved');
+    }).then(res =&gt; console.log(res))
+    .catch(err =&gt; console.log(err));
+    baz();
+};
+foo();
+</code></pre>
+    <p>Kết quả là:</p>
+    <pre><code class="language-javascript">foo
+baz
+Promised resolved
+bar
+</code></pre>
+
+    <p>
+        Chúng ta có thể thấy rằng <code>promise</code> được thực hiện trước
+        <code>setTimeout</code>, bởi vì <code>promise</code> response được lưu trữ
+        bên trong job queue có mức độ ưu tiên cao hơn message queue.
+    </p>
+
+    <h1 id="ket-luan">Kết luận</h1>
+
+    <p>
+        Chúng ta đã học được cách JavaScript không đồng bộ hoạt động và các khái
+        niệm khác như call stack, event loop, message queue và job queue cùng nhau
+        tạo ra môi trường chạy JavaScript. Những khái niệm này rất hữu ích và quan
+        trọng để bạn học hỏi sâu hơn về Javascript, đặc biệt là khi sử dụng NodeJS.
+    </p>
+</div>

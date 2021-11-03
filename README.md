@@ -4,11 +4,15 @@
 
 Repo này có các file mock data, demo cho các bạn tạo data cho database của CLB.
 
+‼️‼️ **Lưu ý**: Nếu chưa quen dùng Git, các bạn kéo thả/download file trực tiếp nhé!!!
+
 ## ✍️ Blogs
 
 Web demo [Hiểu về Cơ chế Bất đồng bộ Asynchronous JavaScript.mp4](./Blogs/demo/Hiểu%20về%20Cơ%20chế%20Bất%20đồng%20bộ%20Asynchronous%20JavaScript.mp4)
 
 ### 👉 Kết quả cần nộp
+
+Nộp vào folder [Blogs](./Blogs)
 
 1. 1 file json, xem [Data Format](#data-format)
 

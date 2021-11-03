@@ -14,11 +14,11 @@ Web demo [Hiểu về Cơ chế Bất đồng bộ Asynchronous JavaScript.mp4](
 
 Nộp vào folder [Blogs](./Blogs)
 
-1. 1 file json, xem [Data Format](#👉-data-format)
+1. 1 file json, xem [Data Format](#data-format)
 
 2. 1 file html, xem [`rawContent` Format](#rawcontent-format)
 
-### 👉 Data Format:
+👉### Data Format:
 
 Demo json [hieu-ve-co-che-bat-dong-bo-asynchronous-javascript.json](./Blogs/hieu-ve-co-che-bat-dong-bo-asynchronous-javascript.json)
 

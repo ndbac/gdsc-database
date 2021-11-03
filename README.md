@@ -14,9 +14,9 @@ Web demo [Hiểu về Cơ chế Bất đồng bộ Asynchronous JavaScript.mp4](
 
 Nộp vào folder [Blogs](./Blogs)
 
-1. 1 file json, xem [Data Format](#data-format)
+1. 1 file json, xem [Data Format](#-data-format)
 
-2. 1 file html, xem [`rawContent` Format](#rawcontent-format)
+2. 1 file html, xem [`rawContent` Format](#-rawcontent-format)
 
 ### 👉 Data Format:
 
@@ -38,14 +38,14 @@ Demo json [hieu-ve-co-che-bat-dong-bo-asynchronous-javascript.json](./Blogs/hieu
 
 Trong đó:
 
-- **rawContent**: Nội dung bài blog, xem [rawContent Format](#rawcontent-format)
+- **rawContent**: Nội dung bài blog, xem [rawContent Format](#-rawcontent-format)
 - **authorName**: Tên bạn
 - **timeRelease**: Thời gian commit data lên repo
 - **timeCreate**: Thời gian viết blog
 - **title**: Tiêu đề bài viết
 - **subTitle**: Phụ đề bài viết, hay tóm tắt nội dung bài viết _tối đa 1 câu hoặc 50 từ_
-- **coverImgUrl**: Link ảnh của bạn, xem [Image URL Format](#image-url-format)
-- **thumbnailImgUrl**: Link ảnh thumbnail bài viết, xem [Image URL Format](#image-url-format)
+- **coverImgUrl**: Link ảnh của bạn, xem [Image URL Format](#-image-url-format)
+- **thumbnailImgUrl**: Link ảnh thumbnail bài viết, xem [Image URL Format](#-image-url-format)
 - **blogTag**: Thể loại của blog, viết hoa chữ cái đầu mỗi từ, một blog có thể có nhiều thể loại, nếu chỉ có 1 thì ghi `["Thể Loại"]`
 
 ![meta demo](./Blogs/demo/meta.png)

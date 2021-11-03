@@ -6,7 +6,7 @@ Repo này có các file mock data, demo cho các bạn tạo data cho database c
 
 ## ✍️ Blogs
 
-[Demo](#demo)
+Web demo [Hiểu về Cơ chế Bất đồng bộ Asynchronous JavaScript.mp4](./Blogs/demo/Hiểu%20về%20Cơ%20chế%20Bất%20đồng%20bộ%20Asynchronous%20JavaScript.mp4)
 
 ### 👉 Kết quả cần nộp
 
@@ -44,7 +44,7 @@ Trong đó:
 - **thumbnailImgUrl**: Link ảnh thumbnail bài viết, xem [Image URL Format](#image-url-format)
 - **blogTag**: Thể loại của blog, viết hoa chữ cái đầu mỗi từ, một blog có thể có nhiều thể loại, nếu chỉ có 1 thì ghi `["Thể Loại"]`
 
-Xem thêm [Demo](#demo)
+![Từ trên xuống: blogTag, title, coverImgUrl, authorName, timeCreate, subTitle, thumbnailImgUrl](./Blogs/demo/meta.png)
 
 ### 👉 `rawContent` Format
 
@@ -133,19 +133,13 @@ Dùng `blockquote`
 
 Văn bản `p`, bảng `table`, in đậm `strong`, in nghiêng `em`, **link `a` phải thêm `target="_blank"`**, list `ul` hoặc `ol`
 
+![Heading, Văn bản, Inline & Block Code, Link, Blockquote](./Blogs/demo/content.png)
+
 ### 👉 Image URL Format
 
 1. Upload ảnh lên [postimg.org](https://postimages.org/)
 
 2. Lấy **Direct link**
-
-### 👉 Demo
-
-Web demo [Hiểu về Cơ chế Bất đồng bộ Asynchronous JavaScript.mp4](./Blogs/demo/Hiểu%20về%20Cơ%20chế%20Bất%20đồng%20bộ%20Asynchronous%20JavaScript.mp4)
-
-![Từ trên xuống: blogTag, title, coverImgUrl, authorName, timeCreate, subTitle, thumbnailImgUrl](./Blogs/demo/meta.png)
-
-![Heading, Văn bản, Inline & Block Code, Link, Blockquote](./Blogs/demo/content.png)
 
 ## 🚵 Events
 

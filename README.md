@@ -18,7 +18,7 @@ Nộp vào folder [Blogs](./Blogs)
 
 2. 1 file html, xem [`rawContent` Format](#rawcontent-format)
 
-### 👉 Data Format:
+### 👉 Data Format: {#data-format}
 
 Demo json [hieu-ve-co-che-bat-dong-bo-asynchronous-javascript.json](./Blogs/hieu-ve-co-che-bat-dong-bo-asynchronous-javascript.json)
 

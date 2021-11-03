@@ -20,7 +20,7 @@ File json [hieu-ve-co-che-bat-dong-bo-asynchronous-javascript.json](./Blogs/hieu
 
 ```json
 {
-  "rawContent": "<div class="post-body"></div>",
+  "rawContent": "<div class="post-body"></div>,
   "authorName": "Tu Bui",
   "timeRelease": "2021-11-02T13:40:50Z",
   "timeCreate": "2021-11-02T02:21:50Z",

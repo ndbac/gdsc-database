@@ -48,7 +48,8 @@ Trong đó:
 - **thumbnailImgUrl**: Link ảnh thumbnail bài viết, xem [Image URL Format](#image-url-format)
 - **blogTag**: Thể loại của blog, viết hoa chữ cái đầu mỗi từ, một blog có thể có nhiều thể loại, nếu chỉ có 1 thì ghi `["Thể Loại"]`
 
-![Từ trên xuống: blogTag, title, coverImgUrl, authorName, timeCreate, subTitle, thumbnailImgUrl](./Blogs/demo/meta.png)
+![meta demo](./Blogs/demo/meta.png)
+<figcaption align = "center">Từ trên xuống: blogTag, title, coverImgUrl, authorName, timeCreate, subTitle, thumbnailImgUrl</figcaption>
 
 ### 👉 `rawContent` Format
 
@@ -137,7 +138,8 @@ Dùng `blockquote`
 
 Văn bản `p`, bảng `table`, in đậm `strong`, in nghiêng `em`, **link `a` phải thêm `target="_blank"`**, list `ul` hoặc `ol`
 
-![Heading, Văn bản, Inline & Block Code, Link, Blockquote](./Blogs/demo/content.png)
+![contentdemo](./Blogs/demo/content.png)
+<figcaption align = "center">Heading, Văn bản, Inline & Block Code, Link, Blockquote</figcaption>
 
 ### 👉 Image URL Format
 

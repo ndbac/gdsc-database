@@ -8,7 +8,7 @@ Repo này có các file mock data, demo cho các bạn tạo data cho database c
 
 [Demo](#demo)
 
-### 👉 Output
+### 👉 Kết quả cần nộp
 
 1. 1 file json, xem [Data Format](#data-format)
 

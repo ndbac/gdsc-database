@@ -49,21 +49,19 @@ Trong đó:
 - **blogTag**: Thể loại của blog, viết hoa chữ cái đầu mỗi từ, một blog có thể có nhiều thể loại, nếu chỉ có 1 thì ghi `["Thể Loại"]`
 
 ![meta demo](./Blogs/demo/meta.png)
-<figcaption align = "center">Từ trên xuống: blogTag, title, coverImgUrl, authorName, timeCreate, subTitle, thumbnailImgUrl</figcaption>
+**Minh họa từ trên xuống: blogTag, title, coverImgUrl, authorName, timeCreate, subTitle, thumbnailImgUrl**
 
 ### 👉 `rawContent` Format
 
 Demo html [Hiểu về Cơ chế Bất Đồng bộ Asynchronous Javascript.html](./Blogs/Hiểu%20về%20Cơ%20chế%20Bất%20Đồng%20bộ%20Asynchronous%20Javascript.html)
 
-1. Soạn nội dung html, tất cả wrap trong:
+1. Soạn nội dung html, bắt đầu từ ảnh thumbnail, _không bao gồm `title` và `subtitle`_, tất cả wrap trong:
 
 ```html
 <div class="post-body">Nội dung blog</div>
 ```
 
-2. Các bạn copy nội dung html rồi paste vào phần `rawContent` trong file JSON.
-
-Bắt đầu từ ảnh thumbnail, _không bao gồm `title` và `subtitle`_.
+2. Copy nội dung html rồi paste vào phần `rawContent` trong file JSON.
 
 #### 1️⃣ Heading
 
@@ -138,8 +136,9 @@ Dùng `blockquote`
 
 Văn bản `p`, bảng `table`, in đậm `strong`, in nghiêng `em`, **link `a` phải thêm `target="_blank"`**, list `ul` hoặc `ol`
 
+**Minh họa từ trên xuống: Heading, Văn bản, Inline Code, Link, Blockquote, Block Code**
+
 ![contentdemo](./Blogs/demo/content.png)
-<figcaption align = "center">Heading, Văn bản, Inline & Block Code, Link, Blockquote</figcaption>
 
 ### 👉 Image URL Format
 

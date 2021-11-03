@@ -16,7 +16,7 @@ Repo này có các file mock data, demo cho các bạn tạo data cho database c
 
 ### 👉 Data Format:
 
-File json [hieu-ve-co-che-bat-dong-bo-asynchronous-javascript.json](./Blogs/hieu-ve-co-che-bat-dong-bo-asynchronous-javascript.json)
+Demo json [hieu-ve-co-che-bat-dong-bo-asynchronous-javascript.json](./Blogs/hieu-ve-co-che-bat-dong-bo-asynchronous-javascript.json)
 
 ```json
 {
@@ -48,7 +48,7 @@ Xem thêm [Demo](#demo)
 
 ### 👉 `rawContent` Format
 
-File html [Hiểu về Cơ chế Bất Đồng bộ Asynchronous Javascript.html](./Blogs/Hiểu%20về%20Cơ%20chế%20Bất%20Đồng%20bộ%20Asynchronous%20Javascript.html)
+Demo html [Hiểu về Cơ chế Bất Đồng bộ Asynchronous Javascript.html](./Blogs/Hiểu%20về%20Cơ%20chế%20Bất%20Đồng%20bộ%20Asynchronous%20Javascript.html)
 
 1. Soạn nội dung html, tất cả wrap trong:
 

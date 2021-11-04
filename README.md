@@ -14,7 +14,7 @@ Xem demo blog trên web tại [đây](https://youtu.be/b6wqJYYOXMg)
 
 ### 👉 Kết quả cần nộp
 
-Nộp vào folder [Blogs](./Blogs)
+Mỗi bạn ÍT NHẤT 1 bài viết. Nộp vào folder [Blogs](./Blogs). Với mỗi 1 bài viết:
 
 1. 1 file json, xem [Data Format](#-data-format)
 

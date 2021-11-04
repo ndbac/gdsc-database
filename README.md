@@ -10,7 +10,7 @@ Repo này chứa instructions, mock data, demo cho các bạn tạo data cho dat
 
 Bài viết không chỉ giới hạn về công nghệ, về lifestyle, hust, gdsc... đều welcome nhé!
 
-Web demo [Hiểu về Cơ chế Bất đồng bộ Asynchronous JavaScript.mp4](./Blogs/demo/Hiểu%20về%20Cơ%20chế%20Bất%20đồng%20bộ%20Asynchronous%20JavaScript.mp4)
+Xem demo blog trên web tại [đây](https://youtu.be/b6wqJYYOXMg)
 
 ### 👉 Kết quả cần nộp
 

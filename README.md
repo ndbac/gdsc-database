@@ -4,8 +4,6 @@
 
 Repo này chứa instructions, mock data, demo cho các bạn tạo data cho database của CLB.
 
-‼️‼️ **Lưu ý**: Nếu chưa quen dùng Git, các bạn kéo thả/download file trực tiếp nhé!!!
-
 ## ✍️ Blogs
 
 Bài viết không chỉ giới hạn về công nghệ, về lifestyle, hust, gdsc... đều welcome nhé!

@@ -1,0 +1,254 @@
+<div class="post-body">
+    <h1 id="gioi-thieu">Prefix-Sum (Tổng tiền tố)</h1>
+
+    <p>Trong lập trình trình, mảng Prefix Sum, Tổng tiền tố, Tổng tích lũy hay Mảng cộng dồn
+        hiểu đơn giản là một mảng gồm một dãy các số có các phần tử là các tổng tiền tố
+        (tổng tất cả các phần từ từ vị trí bắt đầu đến vị trí hiện tại).
+    </p>
+
+    <h1 id="case-1">Tổng tiền tố trên mảng 1 chiều</h1>
+
+    <p>
+       Với một mảng một chiều cho trước arr[] có độ dài là n thì mảng tổng tiền tố prefixSum[] cũng sẽ có độ dài là n.
+       Trong đó, prefixSum[i] = arr[0] + arr[1] + ... + arr[i].
+    </p>
+    <p><strong>Ví dụ 1: Tính tổng tiền tố của 1 dãy các số cho trước.</strong></p>
+    <blockquote>
+        <p>Input: arr[] = {1, 7, 3, -2, 5, 4}</p>
+        <p>Output: prefixSum[] = {1, 8, 11, 9, 14, 18}</p>
+    </blockquote>
+
+    <p>
+        <strong>Code mẫu:</strong>
+    </p>
+    <p>
+        Độ khó cài đặt: Dễ.
+    </p>
+    
+    <p>
+        Độ phức tạp thuật toán: O(n).
+    </p>
+
+    <pre><code class="language-c">for(int i = 1; i <= n; i++)
+    prefixSum[i] = prefixSum[i - 1] + arr[i];
+</code></pre>
+
+    <p><strong>Giải thích thuật toán:</strong></p>
+    <p>
+        Trong quá trình duyệt mảng, với mỗi phần tử prefixSum[i] ta thực hiện cập nhật bằng cách cộng phần tử trước đó là prefixSum[i - 1] với giá trị của arr[i] ở vị trí hiện tại.
+    </p>
+    <figure>
+        <img
+                src="https://i.postimg.cc/05MYBK6d/1.png"
+                alt="Mô tả trực quan bằng hình ảnh"
+        />
+        <figcaption>PrefixSum trên mảng 1 chiều</figcaption>
+    </figure>
+
+    <p>
+        <strong>Ví dụ 2: Tính tổng các phần tử từ vị trí u tới vị trí v trong 1 dãy cho trước.</strong>
+    </p>
+    <blockquote>
+        <p>Input: arr[] = {1, 7, 3, -2, 5, 4} và (u, v) = (2, 4)</p>
+        <p>Output: 8</p>
+    </blockquote>
+
+    <p>
+        <strong>Code mẫu:</strong>
+    </p>
+    <p>
+        Độ khó cài đặt: Dễ.
+    </p>
+    
+    <p>
+        Độ phức tạp khi cài đặt: O(n).
+    </p>
+    <p>Độ phức tạp mỗi truy vấn: O(1).</p>
+
+    <pre><code class="language-c">for(int i = 1; i <= n; i++)
+    prefixSum[i] = prefixSum[i - 1] + arr[i];
+ans = prefixSum[v] - prefixSum[u - 1];
+    </code></pre>
+
+    <p><strong>Giải thích thuật toán:</strong></p>
+    <p>
+        Bước chuẩn bị tương tự như ví dụ 1. 
+    </p>
+    <p>Kết quả của truy vấn (u, v) là kết quả của phép tính prefixSum[u] - prefixSum[v - 1].</p>
+
+        <img
+                src="https://i.postimg.cc/Jn3jN01V/7.png"
+                alt="Mô tả trực quan bằng hình ảnh"
+        />
+        <figcaption>Tính tổng một đoạn (u, v).</figcaption>
+    </figure>
+
+    <p>
+        <strong>Ví dụ 3: Tăng giá trị một đoạn đoạn từ u tới v lên k đơn vị theo q truy vấn có dạng (u, v, k).</strong>
+    </p>
+    <blockquote>
+        <p>Input: arr[] = {1, 7, 3, -2, 5, 4} có (u, v, k) = {(1, 3, 4), (1, 2, 1)}</p>
+        <p>Output: arr[] = {6, 12, 7, -2, 5, 4}</p>
+    </blockquote>
+
+    <p>
+        <strong>Code mẫu:</strong>
+    </p>
+    <p>
+        Độ khó cài đặt: Dễ.
+    </p>
+    
+    <p>
+        Độ phức tạp thuật toán: O(n).
+    </p>
+
+    <pre><code class="language-c">for(int i = 1; i <= q; i++)
+{
+    t[u] += k;
+    t[v + 1] -= k;
+}
+for(int i = 1; i <= n; i++)
+    t[i] += t[i - 1];
+for(int i = 1; i <= n; i++)
+    arr[i] += t[i];
+    </code></pre>
+
+    <p><strong>Giải thích thuật toán:</strong></p>
+    <p>Bước 1: Tạo một mảng phụ t[] có độ dài là n.
+    </p>
+    <p>Bước 2: Với mỗi truy vấn (u, v, k) ta thực hiện tăng t[u] lên k đơn vị và giảm t[v] đi k đơn vị.</p>
+    <p>Bước 3: Thực hiện tổng tích lũy trên mảng t như ví dụ 1.</p>
+    <p>Bước 4: Ta có kết quả của từng giá trị của mảng mới là arr[i] += t[i].</p>
+        <img
+                src="https://i.postimg.cc/NfXBpH3H/9.png"
+                alt="Mô tả trực quan bằng hình ảnh"
+        />
+        <figcaption>Thực hiện truy vấn (u, v, k).</figcaption>
+    </figure>
+    
+
+
+
+
+
+    <h1 id="case-2">Tổng tiền tố trên mảng 2 chiều</h1>
+
+    <p>
+       Với một mảng 2 chiều cho trước arr[][] có độ lớn n x m thì mảng tổng tiền tố prefixSum[][] cũng sẽ có độ lớn n x m.
+       Trong đó, prefixSum[i][j] = arr[0][0] + arr[0][1] + ... + arr[i][j - 1] + arr[i][j].
+    </p>
+    <p><strong>Ví dụ 1: Tính tổng cộng dồn trên mảng 2 chiều.</strong></p>
+    <blockquote>
+        <p>Input: arr[][] = {1, 7, 3, -2,</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3, 5, 3, 2,</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1, 3, -1, 2}</p>
+
+        <p>Output: prefixSum[][] = {1, 8, 11, 9,</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4, 16, 22, 22,</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5, 20, 25, 27}</p>
+    </blockquote>
+
+    <p>
+        <strong>Code tham khảo:</strong>
+    </p>
+    <p>
+        Độ khó cài đặt: Trung bình.
+    </p>
+    
+    <p>
+        Độ phức tạp thuật toán: O(n*m).
+    </p>
+
+    <pre><code class="language-c">for(int i = 1; i <= n; i++)
+    for(int j = 1; j <= m; j++)
+        prefixSum[i][j] = prefixSum[i - 1][j] + prefixSum[i][j - 1] + arr[i][j] - prefixSum[i - 1][j - 1];
+</code></pre>
+
+    <p><strong>Giải thích thuật toán:</strong></p>
+    <p>
+        Ta có, prefixSum[i][j] là tổng các ô có trong hình chữ nhật có đỉnh trên bên trái là (1, 1) và đỉnh dưới bên phải là (u, v).
+    </p>
+    <p>        Công thức tính prefixSum[i][j] = prefixSum[i - 1][j] + prefixSum[i][j - 1] + arr[i][j] - prefixSum[i - 1][j - 1].
+    </p>
+    <p>Tham khảo ảnh minh họa sau đây:</p>
+    <figure>
+        <img
+                src="https://i.postimg.cc/mgf0m64Y/5.png"
+                alt="Event loop và Callback queue"
+        />
+        <figcaption>PrefixSum trên mảng 2 chiều</figcaption>
+    </figure>
+
+    
+    <p>
+        <strong>Ví dụ 2: Ứng dụng vào cập nhật lười trên mảng 2 chiều.</strong>
+    </p>
+    <p>Cho q truy vấn có dạng (u, v, x, y, k), tăng các phần tử trong mảng arr[][] từ vị trí (u, v) tới (x, y) lên k đơn vị.</p>
+    <blockquote>
+        <p>Input:</p>
+     <p>arr[][] = {1, 7, 3, -2,</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3, 5, 3, 2,</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1, 3, -1, 2}</p>
+        <p>(u, v, x, y, k) = {(1, 2, 3, 3, 1), (2, 2, 3, 3, -2)}.</p>
+        <p>Output:</p>
+        <p>arr[][] = {1, 7, 3, -2,</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3, 5, 3, 2,</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1, 3, -1, 2}</p>
+    </blockquote>
+
+    <p>
+        <strong>Code mẫu:</strong>
+    </p>
+    <p>
+        Độ khó cài đặt: Trung bình.
+    </p>
+    
+    <p>
+        Độ phức tạp khi cài đặt: O(n*m).
+    </p>
+
+    <pre><code class="language-c">for(int i = 1; i <= q; i++)
+{
+    t[u][v] += k;
+    t[x + 1][v] -= k;
+    t[u][y + 1] -= k;
+    t[x + 1][y + 1] += k;
+}
+for(int i = 1; i <= n; i++)
+    for(int j = 1; j <= m; j++)
+        prefixSum[i][j] = prefixSum[i - 1][j] + prefixSum[i][j - 1] + t[i][j] - prefixSum[i - 1][j - 1];
+
+for(int i = 1; i <= n; i++)
+    for(int j = 1; j <= m; j++)
+        arr[i][j] += prefixSum[i][j];
+    
+    </code></pre>
+
+    <p><strong>Giải thích thuật toán:</strong></p>
+    <p>
+        Bước 1: Tạo mảng phụ t[][] có độ lớn n*m.
+    </p>
+    <p>Trong đó, ta khởi tạo các giá trị của mảng theo các công thức sau: 
+        t[u][v] += k;  
+        t[x + 1][v] -= k;
+        t[u][y + 1] -= k;
+        t[x + 1][y + 1] += k;</p>
+    <p>Tham khảo ảnh minh họa sau:</p>
+
+        <img
+                src="https://i.postimg.cc/8z1MhMc1/10.png"
+                alt="Mô tả trực quan bằng hình ảnh"
+        />
+        <figcaption>Khởi tạo mảng phụ t[][].</figcaption>
+    </figure>
+    <p>Bước 2: Tính tổng cộng dồn trên mảng t[][].</p>
+    <p>Bước 3: Kết quả của từng phần tử trong mảng được tính theo công thức: arr[i][j] += prefixSum[i][j]</p>
+
+    <h1 id="ket-luan">Kết luận</h1>
+
+    <p>
+        Qua bài chia sẻ trên, các bạn đã hiểu cái cài đặt thuật toán Prefix-Sum cũng
+        như áp dụng trong một số trường hợp để tối ưu hóa thời gian chạy của thuật toán.
+        Chúc các bạn thành công!
+    </p>
+</div>
